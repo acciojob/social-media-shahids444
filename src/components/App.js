@@ -26,6 +26,274 @@ const ArrowLeft = ({ size = 16, className = "" }) => (
   <span className={`inline-block ${className}`} style={{ fontSize: size }}>←</span>
 );
 
+// CSS Styles
+const styles = {
+  app: {
+    minHeight: '100vh',
+    backgroundColor: '#f5f5f5',
+    fontFamily: 'Arial, sans-serif'
+  },
+  nav: {
+    backgroundColor: '#2563eb',
+    color: 'white',
+    padding: '16px',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+  },
+  navContent: {
+    maxWidth: '1200px',
+    margin: '0 auto',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  brand: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    background: 'none',
+    border: 'none',
+    color: 'white',
+    cursor: 'pointer'
+  },
+  navLinks: {
+    display: 'flex',
+    gap: '24px'
+  },
+  navLink: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    textDecoration: 'none',
+    color: 'white',
+    padding: '8px 12px',
+    borderRadius: '4px',
+    transition: 'background-color 0.3s'
+  },
+  createBtn: {
+    backgroundColor: '#1d4ed8',
+    padding: '8px 16px',
+    borderRadius: '8px',
+    border: 'none',
+    color: 'white',
+    cursor: 'pointer'
+  },
+  container: {
+    maxWidth: '800px',
+    margin: '0 auto',
+    padding: '24px'
+  },
+  header: {
+    marginBottom: '32px'
+  },
+  title: {
+    fontSize: '32px',
+    fontWeight: 'bold',
+    color: '#111',
+    marginBottom: '8px'
+  },
+  subtitle: {
+    color: '#666',
+    fontSize: '16px'
+  },
+  tabGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+    gap: '24px',
+    marginBottom: '32px'
+  },
+  tab: {
+    padding: '16px',
+    borderRadius: '8px',
+    textAlign: 'center',
+    textDecoration: 'none',
+    color: 'white',
+    display: 'block',
+    transition: 'transform 0.2s'
+  },
+  tabHome: {
+    backgroundColor: '#3b82f6'
+  },
+  tabUsers: {
+    backgroundColor: '#10b981'
+  },
+  tabNotifications: {
+    backgroundColor: '#f59e0b'
+  },
+  tabCreate: {
+    backgroundColor: '#8b5cf6'
+  },
+  post: {
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    padding: '24px',
+    marginBottom: '16px'
+  },
+  postHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '16px'
+  },
+  author: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px'
+  },
+  avatar: {
+    fontSize: '32px'
+  },
+  authorInfo: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  authorName: {
+    fontWeight: 'bold',
+    color: '#111'
+  },
+  timestamp: {
+    fontSize: '14px',
+    color: '#666'
+  },
+  editBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '8px 12px',
+    backgroundColor: 'transparent',
+    border: '1px solid #ddd',
+    borderRadius: '6px',
+    color: '#2563eb',
+    cursor: 'pointer'
+  },
+  postTitle: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#111',
+    marginBottom: '12px'
+  },
+  postContent: {
+    color: '#333',
+    lineHeight: '1.6',
+    marginBottom: '16px'
+  },
+  reactions: {
+    display: 'flex',
+    gap: '24px',
+    paddingTop: '16px',
+    borderTop: '1px solid #eee'
+  },
+  reactionBtn: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    background: 'none',
+    border: 'none',
+    color: '#666',
+    cursor: 'pointer',
+    padding: '4px 8px',
+    borderRadius: '4px'
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '24px'
+  },
+  formGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px'
+  },
+  label: {
+    fontSize: '14px',
+    fontWeight: '500',
+    color: '#374151'
+  },
+  input: {
+    padding: '12px 16px',
+    border: '1px solid #d1d5db',
+    borderRadius: '8px',
+    fontSize: '16px',
+    width: '100%',
+    boxSizing: 'border-box'
+  },
+  textarea: {
+    padding: '12px 16px',
+    border: '1px solid #d1d5db',
+    borderRadius: '8px',
+    fontSize: '16px',
+    minHeight: '120px',
+    resize: 'vertical',
+    width: '100%',
+    boxSizing: 'border-box'
+  },
+  select: {
+    padding: '12px 16px',
+    border: '1px solid #d1d5db',
+    borderRadius: '8px',
+    fontSize: '16px',
+    width: '100%',
+    boxSizing: 'border-box'
+  },
+  btnPrimary: {
+    backgroundColor: '#2563eb',
+    color: 'white',
+    padding: '12px 24px',
+    border: 'none',
+    borderRadius: '8px',
+    fontSize: '16px',
+    fontWeight: '500',
+    cursor: 'pointer'
+  },
+  btnSecondary: {
+    backgroundColor: 'white',
+    color: '#374151',
+    padding: '12px 24px',
+    border: '1px solid #d1d5db',
+    borderRadius: '8px',
+    fontSize: '16px',
+    fontWeight: '500',
+    cursor: 'pointer'
+  },
+  btnGroup: {
+    display: 'flex',
+    gap: '16px'
+  },
+  userGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: '24px'
+  },
+  userCard: {
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    padding: '24px',
+    textAlign: 'center',
+    textDecoration: 'none',
+    color: 'inherit',
+    display: 'block',
+    cursor: 'pointer'
+  },
+  notificationCard: {
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+    padding: '16px',
+    borderLeft: '4px solid #2563eb',
+    marginBottom: '16px'
+  },
+  backLink: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    color: '#2563eb',
+    textDecoration: 'none',
+    marginBottom: '24px'
+  }
+};
+
 // Mock data
 const initialUsers = [
   { id: 1, name: 'Alice Johnson', avatar: '👩‍💻' },
@@ -64,19 +332,20 @@ const initialPosts = [
 // Navigation Component
 function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
   return (
-    <nav className="bg-blue-600 text-white p-4 shadow-lg">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+    <nav style={styles.nav}>
+      <div style={styles.navContent}>
         <button 
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             setCurrentPage('home');
             setSelectedUserId(null);
           }}
-          className="text-xl font-bold flex items-center gap-2 hover:text-blue-200 transition-colors"
+          style={styles.brand}
         >
           <Home size={24} />
-          Social Hub
+          GenZ
         </button>
-        <div className="flex space-x-6">
+        <div style={styles.navLinks}>
           <a
             href="#"
             onClick={(e) => {
@@ -84,9 +353,7 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
               setCurrentPage('home');
               setSelectedUserId(null);
             }}
-            className={`flex items-center gap-2 hover:text-blue-200 transition-colors ${
-              currentPage === 'home' ? 'text-blue-200 font-semibold' : ''
-            }`}
+            style={styles.navLink}
           >
             <Home size={20} />
             Home
@@ -98,9 +365,7 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
               setCurrentPage('users');
               setSelectedUserId(null);
             }}
-            className={`flex items-center gap-2 hover:text-blue-200 transition-colors ${
-              currentPage === 'users' || currentPage === 'userPosts' ? 'text-blue-200 font-semibold' : ''
-            }`}
+            style={styles.navLink}
           >
             <Users size={20} />
             Users
@@ -112,9 +377,7 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
               setCurrentPage('notifications');
               setSelectedUserId(null);
             }}
-            className={`flex items-center gap-2 hover:text-blue-200 transition-colors ${
-              currentPage === 'notifications' ? 'text-blue-200 font-semibold' : ''
-            }`}
+            style={styles.navLink}
           >
             <Bell size={20} />
             Notifications
@@ -124,7 +387,7 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
               setCurrentPage('create');
               setSelectedUserId(null);
             }}
-            className="bg-blue-700 px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors"
+            style={styles.createBtn}
           >
             Create Post
           </button>
@@ -147,13 +410,13 @@ function Post({ post, showEditButton = true, users, onReact, onEdit }) {
   };
 
   return (
-    <div className="post bg-white rounded-lg shadow-md p-6 mb-4 hover:shadow-lg transition-shadow">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <div className="text-2xl">{author.avatar}</div>
-          <div>
-            <h3 className="font-semibold text-gray-900">{author.name}</h3>
-            <p className="text-sm text-gray-500">
+    <div className="post" style={styles.post}>
+      <div style={styles.postHeader}>
+        <div style={styles.author}>
+          <div style={styles.avatar}>{author.avatar}</div>
+          <div style={styles.authorInfo}>
+            <h3 style={styles.authorName}>{author.name}</h3>
+            <p style={styles.timestamp}>
               {post.timestamp.toLocaleDateString()} at {post.timestamp.toLocaleTimeString()}
             </p>
           </div>
@@ -161,7 +424,8 @@ function Post({ post, showEditButton = true, users, onReact, onEdit }) {
         {showEditButton && (
           <button
             onClick={handleEdit}
-            className="button flex items-center gap-2 px-3 py-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+            className="button edit-btn"
+            style={styles.editBtn}
           >
             <Edit3 size={16} />
             Edit
@@ -169,30 +433,33 @@ function Post({ post, showEditButton = true, users, onReact, onEdit }) {
         )}
       </div>
       
-      <h2 className="text-xl font-bold mb-3 text-gray-900">{post.title}</h2>
-      <p className="text-gray-700 mb-4 leading-relaxed">{post.content}</p>
+      <h2 style={styles.postTitle}>{post.title}</h2>
+      <p style={styles.postContent}>{post.content}</p>
       
-      <div className="flex items-center gap-6 pt-4 border-t border-gray-100">
+      <div style={styles.reactions}>
         <button
           onClick={() => handleReaction('likes')}
-          className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors"
+          className="reaction-btn"
+          style={styles.reactionBtn}
         >
           <Heart size={20} />
-          {post.reactions.likes}
+          <span className="reaction-count">{post.reactions.likes}</span>
         </button>
         <button
           onClick={() => handleReaction('comments')}
-          className="flex items-center gap-2 text-gray-600 hover:text-blue-500 transition-colors"
+          className="reaction-btn"
+          style={styles.reactionBtn}
         >
           <MessageCircle size={20} />
-          {post.reactions.comments}
+          <span className="reaction-count">{post.reactions.comments}</span>
         </button>
         <button
           onClick={() => handleReaction('shares')}
-          className="flex items-center gap-2 text-gray-600 hover:text-green-500 transition-colors"
+          className="reaction-btn"
+          style={styles.reactionBtn}
         >
           <Share2 size={20} />
-          {post.reactions.shares}
+          <span className="reaction-count">{post.reactions.shares}</span>
         </button>
       </div>
     </div>
@@ -202,45 +469,61 @@ function Post({ post, showEditButton = true, users, onReact, onEdit }) {
 // Landing Page
 function LandingPage({ posts, users, onReact, onEdit, setCurrentPage }) {
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">GenZ</h1>
-        <p className="text-gray-600">Connect, share, and discover amazing content from our community.</p>
+    <div style={styles.container}>
+      <div style={styles.header}>
+        <h1 style={styles.title}>GenZ</h1>
+        <p style={styles.subtitle}>Connect, share, and discover amazing content from our community.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <button 
-          onClick={() => setCurrentPage('home')}
-          className="bg-blue-500 text-white p-4 rounded-lg text-center hover:bg-blue-600 transition-colors"
+      <div style={styles.tabGrid}>
+        <a 
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('home');
+          }}
+          style={{...styles.tab, ...styles.tabHome}}
         >
-          <Home size={24} className="mx-auto mb-2" />
-          <h3 className="font-semibold">Home</h3>
-        </button>
-        <button 
-          onClick={() => setCurrentPage('users')}
-          className="bg-green-500 text-white p-4 rounded-lg text-center hover:bg-green-600 transition-colors"
+          <Home size={24} />
+          <h3>Home</h3>
+        </a>
+        <a 
+          href="/users"
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('users');
+          }}
+          style={{...styles.tab, ...styles.tabUsers}}
         >
-          <Users size={24} className="mx-auto mb-2" />
-          <h3 className="font-semibold">Users</h3>
-        </button>
-        <button 
-          onClick={() => setCurrentPage('notifications')}
-          className="bg-yellow-500 text-white p-4 rounded-lg text-center hover:bg-yellow-600 transition-colors"
+          <Users size={24} />
+          <h3>Users</h3>
+        </a>
+        <a 
+          href="/notifications"
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('notifications');
+          }}
+          style={{...styles.tab, ...styles.tabNotifications}}
         >
-          <Bell size={24} className="mx-auto mb-2" />
-          <h3 className="font-semibold">Notifications</h3>
-        </button>
-        <button 
-          onClick={() => setCurrentPage('create')}
-          className="bg-purple-500 text-white p-4 rounded-lg text-center hover:bg-purple-600 transition-colors"
+          <Bell size={24} />
+          <h3>Notifications</h3>
+        </a>
+        <a 
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPage('create');
+          }}
+          style={{...styles.tab, ...styles.tabCreate}}
         >
-          <Edit3 size={24} className="mx-auto mb-2" />
-          <h3 className="font-semibold">Create</h3>
-        </button>
+          <Edit3 size={24} />
+          <h3>Create</h3>
+        </a>
       </div>
 
       <div>
-        <h2 className="text-2xl font-bold mb-6 text-gray-900">Latest Posts</h2>
+        <h2 style={{...styles.title, fontSize: '24px', marginBottom: '24px'}}>Latest Posts</h2>
         <div className="posts-list">
           {posts.map(post => (
             <Post 
@@ -265,19 +548,19 @@ function UsersPage({ users, setCurrentPage, setSelectedUserId }) {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">All Users</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div style={styles.container}>
+      <h1 style={styles.title}>All Users</h1>
+      <div style={styles.userGrid}>
         {users.map(user => (
-          <button
+          <div
             key={user.id}
             onClick={() => handleUserClick(user.id)}
-            className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow text-center"
+            style={styles.userCard}
           >
-            <div className="text-4xl mb-3">{user.avatar}</div>
-            <h3 className="font-semibold text-lg text-gray-900">{user.name}</h3>
-            <p className="text-gray-600 mt-2">View posts →</p>
-          </button>
+            <div style={{...styles.avatar, fontSize: '48px', marginBottom: '12px'}}>{user.avatar}</div>
+            <h3 style={styles.authorName}>{user.name}</h3>
+            <p style={styles.subtitle}>View posts →</p>
+          </div>
         ))}
       </div>
     </div>
@@ -291,12 +574,12 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
 
   if (!user) {
     return (
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="text-center py-12">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">User not found</h1>
+      <div style={styles.container}>
+        <div style={{textAlign: 'center', padding: '48px 0'}}>
+          <h1 style={styles.title}>User not found</h1>
           <button 
             onClick={() => setCurrentPage('users')}
-            className="text-blue-600 hover:underline"
+            style={styles.backLink}
           >
             ← Back to Users
           </button>
@@ -306,20 +589,20 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="flex items-center gap-4 mb-8">
-        <div className="text-4xl">{user.avatar}</div>
+    <div style={styles.container}>
+      <div style={{...styles.author, marginBottom: '32px'}}>
+        <div style={{...styles.avatar, fontSize: '48px'}}>{user.avatar}</div>
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">{user.name}</h1>
-          <p className="text-gray-600">{userPosts.length} posts</p>
+          <h1 style={styles.title}>{user.name}</h1>
+          <p style={styles.subtitle}>{userPosts.length} posts</p>
         </div>
       </div>
 
       <button 
         onClick={() => setCurrentPage('users')}
-        className="inline-flex items-center text-blue-600 hover:underline mb-6"
+        style={styles.backLink}
       >
-        <ArrowLeft size={16} className="mr-1" />
+        <ArrowLeft size={16} />
         Back to Users
       </button>
 
@@ -336,8 +619,8 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
             />
           ))
         ) : (
-          <div className="text-center py-12 bg-gray-50 rounded-lg">
-            <p className="text-gray-600">This user hasn't posted anything yet.</p>
+          <div style={{textAlign: 'center', padding: '48px', backgroundColor: '#f9f9f9', borderRadius: '8px'}}>
+            <p style={styles.subtitle}>This user hasn't posted anything yet.</p>
           </div>
         )}
       </div>
@@ -348,31 +631,32 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
 // Notifications Page
 function NotificationsPage({ notifications, onRefreshNotifications }) {
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Notifications</h1>
+    <div style={styles.container}>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px'}}>
+        <h1 style={styles.title}>Notifications</h1>
         <button
           onClick={onRefreshNotifications}
-          className="button bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+          className="button"
+          style={styles.btnPrimary}
         >
           Refresh Notifications
         </button>
       </div>
 
-      <div className="space-y-4">
+      <div>
         {notifications.length > 0 ? (
           notifications.map(notification => (
-            <div key={notification.id} className="bg-white rounded-lg shadow-md p-4 border-l-4 border-blue-500">
-              <p className="text-gray-900">{notification.message}</p>
-              <p className="text-sm text-gray-500 mt-2">
+            <div key={notification.id} style={styles.notificationCard}>
+              <p style={styles.postContent}>{notification.message}</p>
+              <p style={styles.timestamp}>
                 {notification.timestamp.toLocaleDateString()} at {notification.timestamp.toLocaleTimeString()}
               </p>
             </div>
           ))
         ) : (
-          <div className="text-center py-12 bg-gray-50 rounded-lg">
-            <Bell size={48} className="mx-auto text-gray-400 mb-4" />
-            <p className="text-gray-600">No notifications yet. Click "Refresh Notifications" to check for updates!</p>
+          <div style={{textAlign: 'center', padding: '48px', backgroundColor: '#f9f9f9', borderRadius: '8px'}}>
+            <Bell size={48} style={{color: '#ccc', marginBottom: '16px'}} />
+            <p style={styles.subtitle}>No notifications yet. Click "Refresh Notifications" to check for updates!</p>
           </div>
         )}
       </div>
@@ -386,8 +670,7 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (authorId && title.trim() && content.trim()) {
       onCreatePost({
         authorId: parseInt(authorId),
@@ -399,19 +682,19 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Create New Post</h1>
+    <div style={styles.container}>
+      <h1 style={styles.title}>Create New Post</h1>
       
-      <div className="space-y-6">
-        <div>
-          <label htmlFor="postAuthor" className="block text-sm font-medium text-gray-700 mb-2">
+      <div style={styles.form}>
+        <div style={styles.formGroup}>
+          <label htmlFor="postAuthor" style={styles.label}>
             Select Author
           </label>
           <select
             id="postAuthor"
             value={authorId}
             onChange={(e) => setAuthorId(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            style={styles.select}
             required
           >
             <option value="">Choose an author...</option>
@@ -423,8 +706,8 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
           </select>
         </div>
 
-        <div>
-          <label htmlFor="postTitle" className="block text-sm font-medium text-gray-700 mb-2">
+        <div style={styles.formGroup}>
+          <label htmlFor="postTitle" style={styles.label}>
             Post Title
           </label>
           <input
@@ -432,37 +715,36 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
             id="postTitle"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            style={styles.input}
             placeholder="Enter post title..."
             required
           />
         </div>
 
-        <div>
-          <label htmlFor="postContent" className="block text-sm font-medium text-gray-700 mb-2">
+        <div style={styles.formGroup}>
+          <label htmlFor="postContent" style={styles.label}>
             Content
           </label>
           <textarea
             id="postContent"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            rows={6}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            style={styles.textarea}
             placeholder="What's on your mind?"
             required
           />
         </div>
 
-        <div className="flex gap-4">
+        <div style={styles.btnGroup}>
           <button
             onClick={handleSubmit}
-            className="flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            style={{...styles.btnPrimary, flex: 1}}
           >
             Create Post
           </button>
           <button
             onClick={() => setCurrentPage('home')}
-            className="px-6 py-3 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+            style={styles.btnSecondary}
           >
             Cancel
           </button>
@@ -500,22 +782,22 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
   const author = users.find(u => u.id === editingPost.authorId);
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Edit Post</h1>
+    <div style={styles.container}>
+      <h1 style={styles.title}>Edit Post</h1>
       
-      <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-        <div className="flex items-center gap-3">
-          <div className="text-2xl">{author.avatar}</div>
+      <div style={{...styles.post, marginBottom: '24px'}}>
+        <div style={styles.author}>
+          <div style={styles.avatar}>{author.avatar}</div>
           <div>
-            <h3 className="font-semibold text-gray-900">{author.name}</h3>
-            <p className="text-sm text-gray-500">Author</p>
+            <h3 style={styles.authorName}>{author.name}</h3>
+            <p style={styles.timestamp}>Author</p>
           </div>
         </div>
       </div>
       
-      <div className="space-y-6">
-        <div>
-          <label htmlFor="postTitle" className="block text-sm font-medium text-gray-700 mb-2">
+      <div style={styles.form}>
+        <div style={styles.formGroup}>
+          <label htmlFor="postTitle" style={styles.label}>
             Post Title
           </label>
           <input
@@ -523,35 +805,34 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
             id="postTitle"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            style={styles.input}
             required
           />
         </div>
 
-        <div>
-          <label htmlFor="postContent" className="block text-sm font-medium text-gray-700 mb-2">
+        <div style={styles.formGroup}>
+          <label htmlFor="postContent" style={styles.label}>
             Content
           </label>
           <textarea
             id="postContent"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            rows={6}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+            style={styles.textarea}
             required
           />
         </div>
 
-        <div className="flex gap-4">
+        <div style={styles.btnGroup}>
           <button
             onClick={handleSubmit}
-            className="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors font-medium"
+            style={{...styles.btnPrimary, flex: 1, backgroundColor: '#059669'}}
           >
             Update Post
           </button>
           <button
             onClick={() => setCurrentPage('home')}
-            className="px-6 py-3 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+            style={styles.btnSecondary}
           >
             Cancel
           </button>
@@ -579,7 +860,6 @@ function App() {
     };
     setPosts(prev => [newPost, ...prev]);
     
-    // Add notification
     const author = users.find(u => u.id === post.authorId);
     addNotification(`${author.name} created a new post: "${post.title}"`);
   };
@@ -589,7 +869,6 @@ function App() {
       post.id === updatedPost.id ? updatedPost : post
     ));
     
-    // Add notification
     const author = users.find(u => u.id === updatedPost.authorId);
     addNotification(`${author.name} edited their post: "${updatedPost.title}"`);
   };
@@ -608,7 +887,6 @@ function App() {
       return post;
     }));
 
-    // Add notification
     const post = posts.find(p => p.id === postId);
     const author = users.find(u => u.id === post.authorId);
     addNotification(`Someone reacted to ${author.name}'s post with ${reactionType}`);
@@ -625,7 +903,6 @@ function App() {
   };
 
   const refreshNotifications = () => {
-    // Simulate fetching new notifications
     const newNotifications = [
       'New user joined the platform!',
       'Your post received 5 new likes',
@@ -714,7 +991,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div style={styles.app}>
       <Navigation 
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
