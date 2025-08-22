@@ -77,8 +77,10 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
           Social Hub
         </button>
         <div className="flex space-x-6">
-          <button
-            onClick={() => {
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
               setCurrentPage('home');
               setSelectedUserId(null);
             }}
@@ -88,9 +90,11 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
           >
             <Home size={20} />
             Home
-          </button>
-          <button
-            onClick={() => {
+          </a>
+          <a
+            href="/users"
+            onClick={(e) => {
+              e.preventDefault();
               setCurrentPage('users');
               setSelectedUserId(null);
             }}
@@ -100,9 +104,11 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
           >
             <Users size={20} />
             Users
-          </button>
-          <button
-            onClick={() => {
+          </a>
+          <a
+            href="/notifications"
+            onClick={(e) => {
+              e.preventDefault();
               setCurrentPage('notifications');
               setSelectedUserId(null);
             }}
@@ -112,7 +118,7 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
           >
             <Bell size={20} />
             Notifications
-          </button>
+          </a>
           <button
             onClick={() => {
               setCurrentPage('create');
@@ -198,7 +204,7 @@ function LandingPage({ posts, users, onReact, onEdit, setCurrentPage }) {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome to Social Hub</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">GenZ</h1>
         <p className="text-gray-600">Connect, share, and discover amazing content from our community.</p>
       </div>
 
