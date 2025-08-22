@@ -356,7 +356,7 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
             style={styles.navLink}
           >
             <Home size={20} />
-            Home
+            Posts
           </a>
           <a
             href="/users"
@@ -485,7 +485,7 @@ function LandingPage({ posts, users, onReact, onEdit, setCurrentPage }) {
           style={{...styles.tab, ...styles.tabHome}}
         >
           <Home size={24} />
-          <h3>Home</h3>
+          <h3>Posts</h3>
         </a>
         <a 
           href="/users"
@@ -523,7 +523,15 @@ function LandingPage({ posts, users, onReact, onEdit, setCurrentPage }) {
       </div>
 
       <div>
-        <h2 style={{...styles.title, fontSize: '24px', marginBottom: '24px'}}>Latest Posts</h2>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px'}}>
+          <h2 style={{...styles.title, fontSize: '24px', margin: 0}}>Latest Posts</h2>
+          <button
+            onClick={() => setCurrentPage('create')}
+            style={styles.btnPrimary}
+          >
+            Create Post
+          </button>
+        </div>
         <div className="posts-list">
           {posts.map(post => (
             <Post 
@@ -556,6 +564,7 @@ function UsersPage({ users, setCurrentPage, setSelectedUserId }) {
             key={user.id}
             onClick={() => handleUserClick(user.id)}
             style={styles.userCard}
+            className="user-card"
           >
             <div style={{...styles.avatar, fontSize: '48px', marginBottom: '12px'}}>{user.avatar}</div>
             <h3 style={styles.authorName}>{user.name}</h3>
@@ -991,7 +1000,7 @@ function App() {
   };
 
   return (
-    <div style={styles.app}>
+    <div className="App" style={styles.app}>
       <Navigation 
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
