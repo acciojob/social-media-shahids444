@@ -110,7 +110,8 @@ const styles = {
     textDecoration: 'none',
     color: 'white',
     display: 'block',
-    transition: 'transform 0.2s'
+    transition: 'transform 0.2s',
+    cursor: 'pointer'
   },
   tabHome: {
     backgroundColor: '#3b82f6'
@@ -221,7 +222,7 @@ const styles = {
   },
   textarea: {
     padding: '12px 16px',
-    border: '1px solid #d1d5db',
+    border: '1px solid ',
     borderRadius: '8px',
     fontSize: '16px',
     minHeight: '120px',
@@ -344,6 +345,7 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
             e.preventDefault();
             setCurrentPage('home');
             setSelectedUserId(null);
+            window.history.pushState({}, '', '/');
           }}
           style={styles.brand}
         >
@@ -357,8 +359,10 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
               e.preventDefault();
               setCurrentPage('home');
               setSelectedUserId(null);
+              window.history.pushState({}, '', '/');
             }}
             style={styles.navLink}
+            className="nav-link"
           >
             <Home size={20} />
             Posts
@@ -369,8 +373,11 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
               e.preventDefault();
               setCurrentPage('users');
               setSelectedUserId(null);
+              window.history.pushState({}, '', '/users');
             }}
             style={styles.navLink}
+            className="nav-link"
+            data-testid="nav-users-link"
           >
             <Users size={20} />
             Users
@@ -381,8 +388,11 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
               e.preventDefault();
               setCurrentPage('notifications');
               setSelectedUserId(null);
+              window.history.pushState({}, '', '/notifications');
             }}
             style={styles.navLink}
+            className="nav-link"
+            data-testid="nav-notifications-link"
           >
             <Bell size={20} />
             Notifications
@@ -393,8 +403,10 @@ function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
               e.preventDefault();
               setCurrentPage('create');
               setSelectedUserId(null);
+              window.history.pushState({}, '', '/create');
             }}
             style={styles.createBtn}
+            className="nav-create-btn"
           >
             Create Post
           </a>
@@ -433,6 +445,7 @@ function Post({ post, showEditButton = true, users, onReact, onEdit }) {
             onClick={handleEdit}
             className="button"
             style={styles.editBtn}
+            data-testid={`edit-post-${post.id}`}
           >
             <Edit3 size={16} />
             Edit
@@ -448,25 +461,28 @@ function Post({ post, showEditButton = true, users, onReact, onEdit }) {
           onClick={() => handleReaction('likes')}
           className="reaction-btn"
           style={styles.reactionBtn}
+          data-testid={`like-button-${post.id}`}
         >
           <Heart size={20} />
-          <span className="reaction-count">{post.reactions.likes}</span>
+          <span className="reaction-count" data-testid={`like-count-${post.id}`}>{post.reactions.likes}</span>
         </button>
         <button
           onClick={() => handleReaction('comments')}
           className="reaction-btn"
           style={styles.reactionBtn}
+          data-testid={`comment-button-${post.id}`}
         >
           <MessageCircle size={20} />
-          <span className="reaction-count">{post.reactions.comments}</span>
+          <span className="reaction-count" data-testid={`comment-count-${post.id}`}>{post.reactions.comments}</span>
         </button>
         <button
           onClick={() => handleReaction('shares')}
           className="reaction-btn"
           style={styles.reactionBtn}
+          data-testid={`share-button-${post.id}`}
         >
           <Share2 size={20} />
-          <span className="reaction-count">{post.reactions.shares}</span>
+          <span className="reaction-count" data-testid={`share-count-${post.id}`}>{post.reactions.shares}</span>
         </button>
       </div>
     </div>
@@ -488,8 +504,10 @@ function LandingPage({ posts, users, onReact, onEdit, setCurrentPage }) {
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('home');
+            window.history.pushState({}, '', '/');
           }}
           style={{...styles.tab, ...styles.tabHome}}
+          className="tab-link"
         >
           <Home size={24} />
           <h3>Posts</h3>
@@ -499,8 +517,11 @@ function LandingPage({ posts, users, onReact, onEdit, setCurrentPage }) {
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('users');
+            window.history.pushState({}, '', '/users');
           }}
           style={{...styles.tab, ...styles.tabUsers}}
+          className="tab-link"
+          data-testid="tab-users-link"
         >
           <Users size={24} />
           <h3>Users</h3>
@@ -510,8 +531,11 @@ function LandingPage({ posts, users, onReact, onEdit, setCurrentPage }) {
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('notifications');
+            window.history.pushState({}, '', '/notifications');
           }}
           style={{...styles.tab, ...styles.tabNotifications}}
+          className="tab-link"
+          data-testid="tab-notifications-link"
         >
           <Bell size={24} />
           <h3>Notifications</h3>
@@ -521,8 +545,10 @@ function LandingPage({ posts, users, onReact, onEdit, setCurrentPage }) {
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('create');
+            window.history.pushState({}, '', '/create');
           }}
           style={{...styles.tab, ...styles.tabCreate}}
+          className="tab-link"
         >
           <Edit3 size={24} />
           <h3>Create</h3>
@@ -537,8 +563,10 @@ function LandingPage({ posts, users, onReact, onEdit, setCurrentPage }) {
             onClick={(e) => {
               e.preventDefault();
               setCurrentPage('create');
+              window.history.pushState({}, '', '/create');
             }}
             style={styles.btnPrimary}
+            className="create-post-btn"
           >
             Create Post
           </a>
@@ -564,6 +592,7 @@ function UsersPage({ users, setCurrentPage, setSelectedUserId }) {
   const handleUserClick = (userId) => {
     setSelectedUserId(userId);
     setCurrentPage('userPosts');
+    window.history.pushState({}, '', `/users/${userId}`);
   };
 
   return (
@@ -579,6 +608,7 @@ function UsersPage({ users, setCurrentPage, setSelectedUserId }) {
               handleUserClick(user.id);
             }}
             style={styles.userCard}
+            className="user-card"
           >
             <div style={{...styles.avatar, fontSize: '48px', marginBottom: '12px'}}>{user.avatar}</div>
             <h3 style={styles.authorName}>{user.name}</h3>
@@ -605,6 +635,7 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
             onClick={(e) => {
               e.preventDefault();
               setCurrentPage('users');
+              window.history.pushState({}, '', '/users');
             }}
             style={styles.backLink}
           >
@@ -630,6 +661,7 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
         onClick={(e) => {
           e.preventDefault();
           setCurrentPage('users');
+          window.history.pushState({}, '', '/users');
         }}
         style={styles.backLink}
       >
@@ -709,6 +741,7 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
         content: content.trim()
       });
       setCurrentPage('home');
+      window.history.pushState({}, '', '/');
     }
   };
 
@@ -778,6 +811,7 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
             onClick={(e) => {
               e.preventDefault();
               setCurrentPage('home');
+              window.history.pushState({}, '', '/');
             }}
             style={styles.btnSecondary}
           >
@@ -809,6 +843,7 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
         content: content.trim()
       });
       setCurrentPage('home');
+      window.history.pushState({}, '', '/');
     }
   };
 
@@ -870,6 +905,7 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
             onClick={(e) => {
               e.preventDefault();
               setCurrentPage('home');
+              window.history.pushState({}, '', '/');
             }}
             style={styles.btnSecondary}
           >
@@ -889,6 +925,29 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [editingPost, setEditingPost] = useState(null);
+
+  // Handle browser back/forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path === '/users') {
+        setCurrentPage('users');
+      } else if (path === '/notifications') {
+        setCurrentPage('notifications');
+      } else if (path === '/create') {
+        setCurrentPage('create');
+      } else if (path.startsWith('/users/')) {
+        const userId = parseInt(path.split('/')[2]);
+        setSelectedUserId(userId);
+        setCurrentPage('userPosts');
+      } else {
+        setCurrentPage('home');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const addPost = (post) => {
     const newPost = {
@@ -960,6 +1019,7 @@ function App() {
   const handleEditPost = (post) => {
     setEditingPost(post);
     setCurrentPage('edit');
+    window.history.pushState({}, '', `/edit/${post.id}`);
   };
 
   const renderCurrentPage = () => {
