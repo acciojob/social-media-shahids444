@@ -110,7 +110,8 @@ const styles = {
     textDecoration: 'none',
     color: 'white',
     display: 'block',
-    transition: 'transform 0.2s'
+    transition: 'transform 0.2s',
+    cursor: 'pointer'
   },
   tabHome: {
     backgroundColor: '#3b82f6'
@@ -290,7 +291,11 @@ const styles = {
     alignItems: 'center',
     color: '#2563eb',
     textDecoration: 'none',
-    marginBottom: '24px'
+    marginBottom: '24px',
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: '16px'
   }
 };
 
@@ -332,62 +337,66 @@ const initialPosts = [
 // Navigation Component
 function Navigation({ currentPage, setCurrentPage, setSelectedUserId }) {
   return (
-    <nav style={styles.nav}>
+    <nav style={styles.nav} data-testid="navigation">
       <div style={styles.navContent}>
         <button 
           onClick={(e) => {
             e.preventDefault();
             setCurrentPage('home');
             setSelectedUserId(null);
+            window.history.pushState({}, '', '/');
           }}
           style={styles.brand}
+          data-testid="home-link"
         >
           <Home size={24} />
           GenZ
         </button>
         <div style={styles.navLinks}>
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
+          <button
+            onClick={() => {
               setCurrentPage('home');
               setSelectedUserId(null);
+              window.history.pushState({}, '', '/');
             }}
             style={styles.navLink}
+            data-testid="posts-link"
           >
             <Home size={20} />
             Posts
-          </a>
-          <a
-            href="/users"
-            onClick={(e) => {
-              e.preventDefault();
+          </button>
+          <button
+            onClick={() => {
               setCurrentPage('users');
               setSelectedUserId(null);
+              window.history.pushState({}, '', '/users');
             }}
             style={styles.navLink}
+            data-testid="users-link"
           >
             <Users size={20} />
             Users
-          </a>
-          <a
-            href="/notifications"
-            onClick={(e) => {
-              e.preventDefault();
+          </button>
+          <button
+            onClick={() => {
               setCurrentPage('notifications');
               setSelectedUserId(null);
+              window.history.pushState({}, '', '/notifications');
             }}
             style={styles.navLink}
+            data-testid="notifications-link"
           >
             <Bell size={20} />
             Notifications
-          </a>
+          </button>
           <button
             onClick={() => {
               setCurrentPage('create');
               setSelectedUserId(null);
+              window.history.pushState({}, '', '/create');
             }}
             style={styles.createBtn}
+            data-testid="create-post-button"
           >
             Create Post
           </button>
@@ -410,7 +419,7 @@ function Post({ post, showEditButton = true, users, onReact, onEdit }) {
   };
 
   return (
-    <div className="post" style={styles.post}>
+    <div className="post" style={styles.post} data-testid={`post-${post.id}`}>
       <div style={styles.postHeader}>
         <div style={styles.author}>
           <div style={styles.avatar}>{author.avatar}</div>
@@ -426,6 +435,7 @@ function Post({ post, showEditButton = true, users, onReact, onEdit }) {
             onClick={handleEdit}
             className="button edit-btn"
             style={styles.editBtn}
+            data-testid={`edit-post-${post.id}`}
           >
             <Edit3 size={16} />
             Edit
@@ -441,25 +451,28 @@ function Post({ post, showEditButton = true, users, onReact, onEdit }) {
           onClick={() => handleReaction('likes')}
           className="reaction-btn"
           style={styles.reactionBtn}
+          data-testid={`like-button-${post.id}`}
         >
           <Heart size={20} />
-          <span className="reaction-count">{post.reactions.likes}</span>
+          <span className="reaction-count" data-testid={`like-count-${post.id}`}>{post.reactions.likes}</span>
         </button>
         <button
           onClick={() => handleReaction('comments')}
           className="reaction-btn"
           style={styles.reactionBtn}
+          data-testid={`comment-button-${post.id}`}
         >
           <MessageCircle size={20} />
-          <span className="reaction-count">{post.reactions.comments}</span>
+          <span className="reaction-count" data-testid={`comment-count-${post.id}`}>{post.reactions.comments}</span>
         </button>
         <button
           onClick={() => handleReaction('shares')}
           className="reaction-btn"
           style={styles.reactionBtn}
+          data-testid={`share-button-${post.id}`}
         >
           <Share2 size={20} />
-          <span className="reaction-count">{post.reactions.shares}</span>
+          <span className="reaction-count" data-testid={`share-count-${post.id}`}>{post.reactions.shares}</span>
         </button>
       </div>
     </div>
@@ -469,70 +482,71 @@ function Post({ post, showEditButton = true, users, onReact, onEdit }) {
 // Landing Page
 function LandingPage({ posts, users, onReact, onEdit, setCurrentPage }) {
   return (
-    <div style={styles.container}>
+    <div style={styles.container} data-testid="home-page">
       <div style={styles.header}>
         <h1 style={styles.title}>GenZ</h1>
         <p style={styles.subtitle}>Connect, share, and discover amazing content from our community.</p>
       </div>
 
       <div style={styles.tabGrid}>
-        <a 
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            setCurrentPage('home');
-          }}
+        <button 
+          onClick={() => setCurrentPage('home')}
           style={{...styles.tab, ...styles.tabHome}}
+          data-testid="posts-tab"
         >
           <Home size={24} />
           <h3>Posts</h3>
-        </a>
-        <a 
-          href="/users"
-          onClick={(e) => {
-            e.preventDefault();
+        </button>
+        <button 
+          onClick={() => {
             setCurrentPage('users');
+            window.history.pushState({}, '', '/users');
           }}
           style={{...styles.tab, ...styles.tabUsers}}
+          data-testid="users-tab"
         >
           <Users size={24} />
           <h3>Users</h3>
-        </a>
-        <a 
-          href="/notifications"
-          onClick={(e) => {
-            e.preventDefault();
+        </button>
+        <button 
+          onClick={() => {
             setCurrentPage('notifications');
+            window.history.pushState({}, '', '/notifications');
           }}
           style={{...styles.tab, ...styles.tabNotifications}}
+          data-testid="notifications-tab"
         >
           <Bell size={24} />
           <h3>Notifications</h3>
-        </a>
-        <a 
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
+        </button>
+        <button 
+          onClick={() => {
             setCurrentPage('create');
+            window.history.pushState({}, '', '/create');
           }}
           style={{...styles.tab, ...styles.tabCreate}}
+          data-testid="create-tab"
         >
           <Edit3 size={24} />
           <h3>Create</h3>
-        </a>
+        </button>
       </div>
 
       <div>
         <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px'}}>
           <h2 style={{...styles.title, fontSize: '24px', margin: 0}}>Latest Posts</h2>
           <button
-            onClick={() => setCurrentPage('create')}
+            onClick={() => {
+              setCurrentPage('create');
+              window.history.pushState({}, '', '/create');
+            }}
             style={styles.btnPrimary}
+            data-testid="create-post-btn"
           >
             Create Post
           </button>
         </div>
-        <div className="posts-list">
+        <div className="posts-list" data-testid="posts-list">
           {posts.map(post => (
             <Post 
               key={post.id} 
@@ -553,18 +567,20 @@ function UsersPage({ users, setCurrentPage, setSelectedUserId }) {
   const handleUserClick = (userId) => {
     setSelectedUserId(userId);
     setCurrentPage('userPosts');
+    window.history.pushState({}, '', `/users/${userId}`);
   };
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container} data-testid="users-page">
       <h1 style={styles.title}>All Users</h1>
-      <div style={styles.userGrid}>
+      <div style={styles.userGrid} data-testid="users-grid">
         {users.map(user => (
           <div
             key={user.id}
             onClick={() => handleUserClick(user.id)}
             style={styles.userCard}
             className="user-card"
+            data-testid={`user-${user.id}`}
           >
             <div style={{...styles.avatar, fontSize: '48px', marginBottom: '12px'}}>{user.avatar}</div>
             <h3 style={styles.authorName}>{user.name}</h3>
@@ -587,7 +603,10 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
         <div style={{textAlign: 'center', padding: '48px 0'}}>
           <h1 style={styles.title}>User not found</h1>
           <button 
-            onClick={() => setCurrentPage('users')}
+            onClick={() => {
+              setCurrentPage('users');
+              window.history.pushState({}, '', '/users');
+            }}
             style={styles.backLink}
           >
             ← Back to Users
@@ -608,14 +627,18 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
       </div>
 
       <button 
-        onClick={() => setCurrentPage('users')}
+        onClick={() => {
+          setCurrentPage('users');
+          window.history.pushState({}, '', '/users');
+        }}
         style={styles.backLink}
+        data-testid="back-to-users"
       >
         <ArrowLeft size={16} />
         Back to Users
       </button>
 
-      <div className="posts-list">
+      <div className="posts-list" data-testid="user-posts">
         {userPosts.length > 0 ? (
           userPosts.map(post => (
             <Post 
@@ -640,22 +663,23 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
 // Notifications Page
 function NotificationsPage({ notifications, onRefreshNotifications }) {
   return (
-    <div style={styles.container}>
+    <div style={styles.container} data-testid="notifications-page">
       <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px'}}>
         <h1 style={styles.title}>Notifications</h1>
         <button
           onClick={onRefreshNotifications}
           className="button"
           style={styles.btnPrimary}
+          data-testid="refresh-notifications"
         >
           Refresh Notifications
         </button>
       </div>
 
-      <div>
+      <div data-testid="notifications-list">
         {notifications.length > 0 ? (
           notifications.map(notification => (
-            <div key={notification.id} style={styles.notificationCard}>
+            <div key={notification.id} style={styles.notificationCard} data-testid={`notification-${notification.id}`}>
               <p style={styles.postContent}>{notification.message}</p>
               <p style={styles.timestamp}>
                 {notification.timestamp.toLocaleDateString()} at {notification.timestamp.toLocaleTimeString()}
@@ -687,11 +711,12 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
         content: content.trim()
       });
       setCurrentPage('home');
+      window.history.pushState({}, '', '/');
     }
   };
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container} data-testid="create-post-page">
       <h1 style={styles.title}>Create New Post</h1>
       
       <div style={styles.form}>
@@ -705,6 +730,7 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
             onChange={(e) => setAuthorId(e.target.value)}
             style={styles.select}
             required
+            data-testid="author-select"
           >
             <option value="">Choose an author...</option>
             {users.map(user => (
@@ -727,6 +753,7 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
             style={styles.input}
             placeholder="Enter post title..."
             required
+            data-testid="post-title-input"
           />
         </div>
 
@@ -741,6 +768,7 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
             style={styles.textarea}
             placeholder="What's on your mind?"
             required
+            data-testid="post-content-input"
           />
         </div>
 
@@ -748,12 +776,17 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
           <button
             onClick={handleSubmit}
             style={{...styles.btnPrimary, flex: 1}}
+            data-testid="submit-post"
           >
             Create Post
           </button>
           <button
-            onClick={() => setCurrentPage('home')}
+            onClick={() => {
+              setCurrentPage('home');
+              window.history.pushState({}, '', '/');
+            }}
             style={styles.btnSecondary}
+            data-testid="cancel-create"
           >
             Cancel
           </button>
@@ -783,6 +816,7 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
         content: content.trim()
       });
       setCurrentPage('home');
+      window.history.pushState({}, '', '/');
     }
   };
 
@@ -791,7 +825,7 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
   const author = users.find(u => u.id === editingPost.authorId);
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container} data-testid="edit-post-page">
       <h1 style={styles.title}>Edit Post</h1>
       
       <div style={{...styles.post, marginBottom: '24px'}}>
@@ -806,29 +840,31 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
       
       <div style={styles.form}>
         <div style={styles.formGroup}>
-          <label htmlFor="postTitle" style={styles.label}>
+          <label htmlFor="editPostTitle" style={styles.label}>
             Post Title
           </label>
           <input
             type="text"
-            id="postTitle"
+            id="editPostTitle"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             style={styles.input}
             required
+            data-testid="edit-title-input"
           />
         </div>
 
         <div style={styles.formGroup}>
-          <label htmlFor="postContent" style={styles.label}>
+          <label htmlFor="editPostContent" style={styles.label}>
             Content
           </label>
           <textarea
-            id="postContent"
+            id="editPostContent"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             style={styles.textarea}
             required
+            data-testid="edit-content-input"
           />
         </div>
 
@@ -836,12 +872,17 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
           <button
             onClick={handleSubmit}
             style={{...styles.btnPrimary, flex: 1, backgroundColor: '#059669'}}
+            data-testid="submit-edit"
           >
             Update Post
           </button>
           <button
-            onClick={() => setCurrentPage('home')}
+            onClick={() => {
+              setCurrentPage('home');
+              window.history.pushState({}, '', '/');
+            }}
             style={styles.btnSecondary}
+            data-testid="cancel-edit"
           >
             Cancel
           </button>
@@ -859,6 +900,29 @@ function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [editingPost, setEditingPost] = useState(null);
+
+  // Handle browser back/forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path === '/users') {
+        setCurrentPage('users');
+      } else if (path === '/notifications') {
+        setCurrentPage('notifications');
+      } else if (path === '/create') {
+        setCurrentPage('create');
+      } else if (path.startsWith('/users/')) {
+        const userId = parseInt(path.split('/')[2]);
+        setSelectedUserId(userId);
+        setCurrentPage('userPosts');
+      } else {
+        setCurrentPage('home');
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   const addPost = (post) => {
     const newPost = {
@@ -930,6 +994,7 @@ function App() {
   const handleEditPost = (post) => {
     setEditingPost(post);
     setCurrentPage('edit');
+    window.history.pushState({}, '', `/edit/${post.id}`);
   };
 
   const renderCurrentPage = () => {
