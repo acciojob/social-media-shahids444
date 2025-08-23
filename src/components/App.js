@@ -918,6 +918,9 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
 }
 
 // Main App Component
+// ... (keep all the existing code above)
+
+// Main App Component
 function App() {
   const [users] = useState(initialUsers);
   const [posts, setPosts] = useState(initialPosts);
@@ -950,6 +953,12 @@ function App() {
   }, []);
 
   const addPost = (post) => {
+    // Validation: Ensure all required fields are filled
+    if (!post.authorId || !post.title || !post.content) {
+      alert('Please fill all required fields');
+      return;
+    }
+    
     const newPost = {
       ...post,
       id: Date.now(),
@@ -963,6 +972,12 @@ function App() {
   };
 
   const updatePost = (updatedPost) => {
+    // Validation: Ensure all required fields are filled
+    if (!updatedPost.title || !updatedPost.content) {
+      alert('Please fill all required fields');
+      return;
+    }
+    
     setPosts(prev => prev.map(post => 
       post.id === updatedPost.id ? updatedPost : post
     ));
@@ -972,6 +987,11 @@ function App() {
   };
 
   const reactToPost = (postId, reactionType) => {
+    // Validation: Ensure the post exists
+    const post = posts.find(p => p.id === postId);
+    if (!post) return;
+    
+    // Update the reaction count
     setPosts(prev => prev.map(post => {
       if (post.id === postId) {
         return {
@@ -985,7 +1005,6 @@ function App() {
       return post;
     }));
 
-    const post = posts.find(p => p.id === postId);
     const author = users.find(u => u.id === post.authorId);
     addNotification(`Someone reacted to ${author.name}'s post with ${reactionType}`);
   };
@@ -1022,6 +1041,9 @@ function App() {
     window.history.pushState({}, '', `/edit/${post.id}`);
   };
 
+ 
+
+// ... (keep all the existing code below)
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'home':
