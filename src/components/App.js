@@ -527,7 +527,7 @@ function LandingPage({ posts, users, onReact, onOpenDetails, setCurrentPage }) {
 
       <div>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-          <h2 style={{ ...styles.title, fontSize: '24px', margin: 0 }}>Latest Posts</h2>
+          <h2 style={{ ...styles.title, fontSize: '24px,', margin: 0 }}>Latest Posts</h2>
           <a
             href="/create"
             onClick={(e) => { e.preventDefault(); setCurrentPage('create'); window.history.pushState({}, '', '/create'); }}
@@ -624,7 +624,7 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
       </a>
 
       <div className="posts-list">
-        {/* Keep placeholder for nth-child(2) compatibility if needed here too */}
+        {/* Keep placeholder for nth-child(2) compatibility here too */}
         <div style={{ display: 'none' }} aria-hidden="true"></div>
         {userPosts.length > 0 ? (
           userPosts.map(post => (
@@ -633,7 +633,7 @@ function UserPostsPage({ selectedUserId, users, posts, onReact, setCurrentPage }
               post={post}
               users={users}
               onReact={onReact}
-              onOpenDetails={() => { /* no details from user posts */ }}
+              onOpenDetails={() => {}}
               showEditButton={false}
             />
           ))
@@ -945,7 +945,7 @@ function App() {
       }
     };
 
-    handlePopState(); // initialize on mount
+    handlePopState(); // initialize on mount for deep links
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, [posts]);
