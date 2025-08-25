@@ -427,7 +427,7 @@ const PostDetailPage = ({ posts, setPosts, users, currentPath, setCurrentPath })
             </button>
           </>
         ) : (
-          <div>
+          <>
             <h1 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '10px' }}>{post.title}</h1>
             <p style={{ color: '#666', marginBottom: '15px', fontSize: '14px' }}>
               by {post.author} <em>{post.timestamp}</em>
@@ -515,7 +515,7 @@ const PostDetailPage = ({ posts, setPosts, users, currentPath, setCurrentPath })
             >
               Edit Post
             </button>
-          </div>
+          </>
         )}
       </div>
     </div>
