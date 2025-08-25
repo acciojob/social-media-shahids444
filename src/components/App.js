@@ -376,7 +376,7 @@ const PostDetailPage = ({ posts, setPosts, users, currentPath, setCurrentPath })
         backgroundColor: 'white'
       }}>
         {isEditing ? (
-          <div>
+          <>
             <h2>Edit Post</h2>
             <div style={{ marginBottom: '15px' }}>
               <label>Post Title:</label>
@@ -425,7 +425,7 @@ const PostDetailPage = ({ posts, setPosts, users, currentPath, setCurrentPath })
             >
               Save Post
             </button>
-          </div>
+          </>
         ) : (
           <div>
             <h1 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '10px' }}>{post.title}</h1>
