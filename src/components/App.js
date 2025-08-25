@@ -72,9 +72,8 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
       <h1 style={{ fontSize: '48px', fontWeight: 'bold', margin: '0 0 30px 0' }}>GenZ</h1>
       <div style={{ display: 'flex', gap: '20px' }}>
        <a 
-  href="/users" 
-  data-testid="users-nav-link"
-  onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
+  href="/" 
+  onClick={(e) => { e.preventDefault(); setCurrentPath('/'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
@@ -86,9 +85,10 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
         >
           Posts
         </a>
-        <a 
-          href="/users" 
-          onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
+       <a 
+  href="/" 
+  data-testid="users-nav-link"
+  onClick={(e) => { e.preventDefault(); setCurrentPath('/'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
