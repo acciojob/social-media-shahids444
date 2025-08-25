@@ -401,6 +401,18 @@ function Post({ post, showEditButton = true, users, onReact, onOpenDetails }) {
 
   return (
     <div className="post" style={styles.post}>
+      {showEditButton && (
+        <button
+          onClick={handleOpenDetails}
+          className="button"
+          style={styles.editBtn}
+          data-testid={`edit-post-${post.id}`}
+        >
+          <Edit3 size={16} />
+          Edit
+        </button>
+      )}
+      
       <div style={styles.postHeader}>
         <div style={styles.author}>
           <div style={styles.avatar}>{author.avatar}</div>
@@ -411,17 +423,6 @@ function Post({ post, showEditButton = true, users, onReact, onOpenDetails }) {
             </p>
           </div>
         </div>
-        {showEditButton && (
-          <button
-            onClick={handleOpenDetails}
-            className="button"
-            style={styles.editBtn}
-            data-testid={`edit-post-${post.id}`}
-          >
-            <Edit3 size={16} />
-            Edit
-          </button>
-        )}
       </div>
 
       <h2 style={styles.postTitle}>{post.title}</h2>
@@ -491,7 +492,8 @@ function LandingPage({ posts, users, onReact, onOpenDetails, setCurrentPage }) {
         <div
           onClick={() => { setCurrentPage('home'); window.history.pushState({}, '', '/'); }}
           style={{ ...styles.tab, ...styles.tabHome }}
-          className="tab-link tab-posts-link"
+          className="landing-tab landing-posts-tab"
+          data-testid="landing-posts-tab"
         >
           <Home size={24} />
           <h3>Posts</h3>
@@ -499,7 +501,8 @@ function LandingPage({ posts, users, onReact, onOpenDetails, setCurrentPage }) {
         <div
           onClick={() => { setCurrentPage('users'); window.history.pushState({}, '', '/users'); }}
           style={{ ...styles.tab, ...styles.tabUsers }}
-          className="tab-link tab-users-link"
+          className="landing-tab landing-users-tab"
+          data-testid="landing-users-tab"
         >
           <UsersIcon size={24} />
           <h3>Users</h3>
@@ -507,7 +510,8 @@ function LandingPage({ posts, users, onReact, onOpenDetails, setCurrentPage }) {
         <div
           onClick={() => { setCurrentPage('notifications'); window.history.pushState({}, '', '/notifications'); }}
           style={{ ...styles.tab, ...styles.tabNotifications }}
-          className="tab-link tab-notifications-link"
+          className="landing-tab landing-notifications-tab"
+          data-testid="landing-notifications-tab"
         >
           <Bell size={24} />
           <h3>Notifications</h3>
@@ -515,7 +519,8 @@ function LandingPage({ posts, users, onReact, onOpenDetails, setCurrentPage }) {
         <div
           onClick={() => { setCurrentPage('create'); window.history.pushState({}, '', '/create'); }}
           style={{ ...styles.tab, ...styles.tabCreate }}
-          className="tab-link tab-create-link"
+          className="landing-tab landing-create-tab"
+          data-testid="landing-create-tab"
         >
           <Edit3 size={24} />
           <h3>Create</h3>
@@ -727,13 +732,24 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const handleSubmit = () => {
+  // Ensure form is properly initialized
+  useEffect(() => {
+    // Make sure form elements are rendered
+    console.log('CreatePost page mounted');
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (authorId && title.trim() && content.trim()) {
       onCreatePost({
         authorId: parseInt(authorId, 10),
         title: title.trim(),
         content: content.trim()
       });
+      // Reset form
+      setAuthorId('');
+      setTitle('');
+      setContent('');
       setCurrentPage('home');
       window.history.pushState({}, '', '/');
     }
@@ -743,7 +759,7 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
     <div style={styles.container}>
       <h1 style={styles.title}>Create New Post</h1>
 
-      <div style={styles.form}>
+      <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.formGroup}>
           <label htmlFor="postAuthor" style={styles.label}>
             Select Author
@@ -771,6 +787,7 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
           <input
             type="text"
             id="postTitle"
+            name="postTitle"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             style={styles.input}
@@ -785,6 +802,7 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
           </label>
           <textarea
             id="postContent"
+            name="postContent"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             style={styles.textarea}
@@ -795,19 +813,20 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
 
         <div style={styles.btnGroup}>
           <button
+            type="button"
             onClick={() => { setCurrentPage('home'); window.history.pushState({}, '', '/'); }}
             style={styles.btnSecondary}
           >
             Cancel
           </button>
           <button
-            onClick={handleSubmit}
+            type="submit"
             style={{ ...styles.btnPrimary, backgroundColor: '#2563eb' }}
           >
             Create Post
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
@@ -824,7 +843,8 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
     }
   }, [editingPost]);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if (editingPost && title.trim() && content.trim()) {
       onUpdatePost({
         ...editingPost,
@@ -854,7 +874,7 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
         </div>
       </div>
 
-      <div style={styles.form}>
+      <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.formGroup}>
           <label htmlFor="postTitle" style={styles.label}>
             Post Title
@@ -862,6 +882,7 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
           <input
             type="text"
             id="postTitle"
+            name="postTitle"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             style={styles.input}
@@ -875,6 +896,7 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
           </label>
           <textarea
             id="postContent"
+            name="postContent"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             style={styles.textarea}
@@ -884,19 +906,20 @@ function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
 
         <div style={styles.btnGroup}>
           <button
+            type="button"
             onClick={() => { setCurrentPage('home'); window.history.pushState({}, '', '/'); }}
             style={styles.btnSecondary}
           >
             Cancel
           </button>
           <button
-            onClick={handleSubmit}
+            type="submit"
             style={{ ...styles.btnPrimary, backgroundColor: '#059669', flex: 1 }}
           >
             Update Post
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
