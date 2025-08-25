@@ -86,7 +86,7 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
         >
           Posts
         </a>
-        <a 
+       <a 
   href="/" 
   data-testid="users-nav-link"
   onClick={(e) => { e.preventDefault(); setCurrentPath('/'); }}
