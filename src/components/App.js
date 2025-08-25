@@ -276,7 +276,7 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
                     cursor: 'pointer'
                   }}
                 >
-                  ❤️ {post.reactions.heart}
+                  ❤ {post.reactions.heart}
                 </button>
                 <button 
                   onClick={() => handleReaction(post.id, 'rocket')}
@@ -305,8 +305,8 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
               </div>
               
               <a 
-                href={`/posts/${post.id}`}
-                onClick={(e) => { e.preventDefault(); setCurrentPath(`/posts/${post.id}`); }}
+                href={/posts/${post.id}}
+                onClick={(e) => { e.preventDefault(); setCurrentPath(/posts/${post.id}); }}
                 className="button"
                 style={{ 
                   backgroundColor: '#0EA5E9', 
@@ -469,7 +469,7 @@ const PostDetailPage = ({ posts, setPosts, users, currentPath, setCurrentPath })
                   cursor: 'pointer'
                 }}
               >
-                ❤️ {post.reactions.heart}
+                ❤ {post.reactions.heart}
               </button>
               <button 
                 onClick={() => handleReaction('rocket')}
@@ -537,22 +537,29 @@ const UsersPage = ({ users, posts, setCurrentPath }) => {
       {!selectedUser ? (
         <div>
           <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '20px' }}>Users</h1>
-          <ul style={{ listStyle: 'disc', paddingLeft: '20px', marginBottom: '30px' }}>
-  {userPosts.map(post => (
-    <li key={post.id} style={{ padding: '5px 0' }}>
-      <a 
-        href={`/posts/${post.id}`}
-        onClick={(e) => {
-          e.preventDefault();
-          setCurrentPath(`/posts/${post.id}`);
-        }}
-        style={{ color: '#0EA5E9', textDecoration: 'underline' }}
-      >
-        {post.title}
-      </a>
-    </li>
-  ))}
-</ul>
+          <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
+            {users.map(user => (
+              <li key={user.id} style={{ 
+                cursor: 'pointer', 
+                padding: '10px 0',
+                fontSize: '18px'
+              }}>
+                <a 
+                  href="#" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleUserClick(user);
+                  }} 
+                  style={{ 
+                    color: '#0EA5E9', 
+                    textDecoration: 'underline' 
+                  }}
+                >
+                  {user.name}
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       ) : (
         <div>
