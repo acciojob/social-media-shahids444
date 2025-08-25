@@ -87,13 +87,12 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
           Posts
         </a>
         <a 
-          href="/users" 
+          href="/" 
           onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
             padding: '12px 24px',
-            backgroundColor: currentPath === '/users' ? '#6D28D9' : '#7C3AED',
             borderRadius: '8px',
             fontWeight: 'bold'
           }}
