@@ -71,16 +71,29 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
     }}>
       <h1 style={{ fontSize: '48px', fontWeight: 'bold', margin: '0 0 30px 0' }}>GenZ</h1>
       <div style={{ display: 'flex', gap: '20px' }}>
-      
+       <a 
+  href="/users" 
+  data-testid="users-nav-link"
+  onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
+          style={{
+            color: 'white',
+            textDecoration: 'underline',
+            padding: '12px 24px',
+            backgroundColor: currentPath === '/' ? '#6D28D9' : '#7C3AED',
+            borderRadius: '8px',
+            fontWeight: 'bold'
+          }}
+        >
           Posts
-       
+        </a>
         <a 
-          href="/users"
+          href="/users" 
           onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
             padding: '12px 24px',
+             backgroundColor: currentPath === '/' ? '#6D28D9' : '#7C3AED',
             borderRadius: '8px',
             fontWeight: 'bold'
           }}
