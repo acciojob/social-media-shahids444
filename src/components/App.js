@@ -164,7 +164,7 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
             ...post, 
             reactions: { 
               ...post.reactions, 
-              [reactionType]: reactionType === 'eyes' ? 0 : post.reactions[reactionType] + 1 
+              [reactionType]: post.reactions[reactionType] + 1 
             } 
           }
         : post
@@ -358,7 +358,7 @@ const PostDetailPage = ({ posts, setPosts, users, currentPath, setCurrentPath })
             ...p, 
             reactions: { 
               ...p.reactions, 
-              [reactionType]: reactionType === 'eyes' ? 0 : p.reactions[reactionType] + 1 
+              [reactionType]: p.reactions[reactionType] + 1 
             } 
           }
         : p
