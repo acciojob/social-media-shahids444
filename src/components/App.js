@@ -324,12 +324,14 @@ const initialPosts = [
 
 // Navigation Component
 function Navigation({ setCurrentPage, setSelectedUserId, setCurrentPostId, setEditingPost }) {
-  const go = (page, path) => {
+const go = (page, path) => {
     setSelectedUserId(null);
     setCurrentPostId(null);
     setEditingPost(null);
     setCurrentPage(page);
-    window.history.pushState({}, '', path);
+    if (typeof window !== 'undefined' && window.history) {
+      window.history.pushState({}, '', path);
+    }
   };
 
   return (
