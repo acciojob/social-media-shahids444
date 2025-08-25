@@ -352,15 +352,7 @@ function Navigation({ setCurrentPage, setSelectedUserId, setCurrentPostId, setEd
             <Home size={20} />
             Posts
           </a>
-          <a
-            href="/users"
-            onClick={(e) => { e.preventDefault(); go('users', '/users'); }}
-            style={styles.navLink}
-            data-testid="nav-users-link"
-          >
-            <UsersIcon size={20} />
-            Users
-          </a>
+          nav-users-link
           <a
             href="/notifications"
             onClick={(e) => { e.preventDefault(); go('notifications', '/notifications'); }}
@@ -409,15 +401,15 @@ function Post({ post, showEditButton = true, users, onReact, onOpenDetails }) {
           </div>
         </div>
         {showEditButton && (
-          <button
-            onClick={handleOpenDetails}
-            className="button"
-            style={styles.editBtn}
-            data-testid={`edit-post-${post.id}`}
-          >
-            <Edit3 size={16} />
-            Edit
-          </button>
+         <button
+  onClick={handleOpenDetails}
+  className="button" // Add this class
+  style={styles.editBtn}
+  data-testid={`edit-post-${post.id}`}
+>
+  <Edit3 size={16} />
+  Edit
+</button>
         )}
       </div>
 
@@ -537,17 +529,16 @@ function LandingPage({ posts, users, onReact, onOpenDetails, setCurrentPage }) {
             Create Post
           </a>
         </div>
-        <div className="posts-list">
-          {/* Invisible first child to make newly created post .posts-list > :nth-child(2) */}
-          <div style={{ display: 'none' }} aria-hidden="true"></div>
-          {posts.map(post => (
-            <Post
-              key={post.id}
-              post={post}
-              users={users}
-              onReact={onReact}
-              onOpenDetails={onOpenDetails}
-            />
+      <div className="posts-list">
+  {posts.map((post, index) => (
+    <Post
+      key={post.id}
+      post={post}
+      users={users}
+      onReact={onReact}
+      onOpenDetails={onOpenDetails}
+      className={index === 0 ? "first-post" : ""} // Add class for first post
+    />
           ))}
         </div>
       </div>
@@ -569,12 +560,16 @@ function UsersPage({ users, setCurrentPage, setSelectedUserId }) {
       <ul>
         {users.slice(0, 3).map(user => (
           <li key={user.id}>
-            <a
-              href={`/users/${user.id}`}
-              onClick={(e) => { e.preventDefault(); handleUserClick(user.id); }}
-            >
-              {user.name}
-            </a>
+        <a
+  href="/users"
+  onClick={(e) => { e.preventDefault(); setCurrentPage('users'); window.history.pushState({}, '', '/users'); }}
+  style={{ ...styles.tab, ...styles.tabUsers }}
+  className="tab-link tab-users-link" // Add unique class
+  data-testid="tab-users-link"
+>
+  <UsersIcon size={24} />
+  <h3>Users</h3>
+</a>
           </li>
         ))}
       </ul>
@@ -821,13 +816,14 @@ function CreatePostPage({ users, onCreatePost, setCurrentPage }) {
 function EditPostPage({ editingPost, users, onUpdatePost, setCurrentPage }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+useEffect(() => {
+  // Reset form when component mounts
+  if (editingPost) {
+    setTitle(editingPost.title);
+    setContent(editingPost.content);
+  }
+}, [editingPost]);
 
-  useEffect(() => {
-    if (editingPost) {
-      setTitle(editingPost.title);
-      setContent(editingPost.content);
-    }
-  }, [editingPost]);
 
   const handleSubmit = () => {
     if (editingPost && title.trim() && content.trim()) {
