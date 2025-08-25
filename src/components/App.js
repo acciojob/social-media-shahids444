@@ -538,20 +538,24 @@ const UsersPage = ({ users, posts, setCurrentPath }) => {
         <div>
           <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '20px' }}>Users</h1>
           <ul style={{ listStyle: 'disc', paddingLeft: '20px', marginBottom: '30px' }}>
-  {userPosts.map(post => (
-    <li key={post.id} style={{ padding: '5px 0' }}>
-      <a 
-        href={`/posts/${post.id}`}
-        onClick={(e) => {
-          e.preventDefault();
-          setCurrentPath(`/posts/${post.id}`);
-        }}
-        style={{ color: '#0EA5E9', textDecoration: 'underline' }}
-      >
-        {post.title}
-      </a>
-    </li>
-  ))}
+  {userPosts.length > 0 ? (
+    userPosts.map(post => (
+      <li key={post.id} style={{ padding: '5px 0' }}>
+        <a 
+          href={`/posts/${post.id}`}
+          onClick={(e) => {
+            e.preventDefault();
+            setCurrentPath(`/posts/${post.id}`);
+          }}
+          style={{ color: '#0EA5E9', textDecoration: 'underline' }}
+        >
+          {post.title}
+        </a>
+      </li>
+    ))
+  ) : (
+    <li>No posts found for this user</li>
+  )}
 </ul>
         </div>
       ) : (
