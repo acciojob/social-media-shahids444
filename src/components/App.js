@@ -71,9 +71,10 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
     }}>
       <h1 style={{ fontSize: '48px', fontWeight: 'bold', margin: '0 0 30px 0' }}>GenZ</h1>
       <div style={{ display: 'flex', gap: '20px' }}>
-        <a 
-          href="/" 
-          onClick={(e) => { e.preventDefault(); setCurrentPath('/'); }}
+       <a 
+  href="/users" 
+  data-testid="users-nav-link"
+  onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
@@ -544,12 +545,13 @@ const UsersPage = ({ users, posts, setCurrentPath }) => {
                 padding: '10px 0',
                 fontSize: '18px'
               }}>
-                <a 
-                  href="#" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleUserClick(user);
-                  }} 
+              <a 
+  href="#" 
+  data-testid={`user-link-${user.id}`}
+  onClick={(e) => {
+    e.preventDefault();
+    handleUserClick(user);
+  }}
                   style={{ 
                     color: '#0EA5E9', 
                     textDecoration: 'underline' 
