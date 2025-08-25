@@ -55,76 +55,86 @@ const Router = ({ children, currentPath }) => {
 const Route = ({ path, children }) => children;
 
 // Navigation Component
-const Navigation = ({ currentPath, setCurrentPath }) => (
-  <div style={{ 
-    background: 'linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%)', 
-    padding: '20px',
-    color: 'white'
-  }}>
-    <h1 style={{ fontSize: '48px', fontWeight: 'bold', margin: '0 0 30px 0' }}>GenZ</h1>
-    <div style={{ display: 'flex', gap: '20px' }}>
-      <a 
-        href="/" 
-        onClick={(e) => { e.preventDefault(); setCurrentPath('/'); }}
-        style={{
-          color: 'white',
-          textDecoration: 'underline',
-          padding: '12px 24px',
-          backgroundColor: currentPath === '/' ? '#6D28D9' : '#7C3AED',
-          borderRadius: '8px',
-          fontWeight: 'bold'
-        }}
-      >
-        Posts
-      </a>
-      <a 
-        href="/users" 
-        onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
-        style={{
-          color: 'white',
-          textDecoration: 'underline',
-          padding: '12px 24px',
-          backgroundColor: currentPath === '/users' ? '#6D28D9' : '#7C3AED',
-          borderRadius: '8px',
-          fontWeight: 'bold'
-        }}
-      >
-        Users
-      </a>
-      <a 
-        href="/notifications" 
-        onClick={(e) => { e.preventDefault(); setCurrentPath('/notifications'); }}
-        style={{
-          color: 'white',
-          textDecoration: 'underline',
-          padding: '12px 24px',
-          backgroundColor: currentPath === '/notifications' ? '#6D28D9' : '#7C3AED',
-          borderRadius: '8px',
-          fontWeight: 'bold'
-        }}
-      >
-        Notifications
-      </a>
-      {currentPath === '/notifications' && (
-        <button
-          onClick={() => window.refreshNotifications && window.refreshNotifications()}
+const Navigation = ({ currentPath, setCurrentPath }) => {
+  // Update URL when path changes
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && window.history) {
+      window.history.pushState(null, '', currentPath);
+    }
+  }, [currentPath]);
+
+  return (
+    <div style={{ 
+      background: 'linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%)', 
+      padding: '20px',
+      color: 'white'
+    }}>
+      <h1 style={{ fontSize: '48px', fontWeight: 'bold', margin: '0 0 30px 0' }}>GenZ</h1>
+      <div style={{ display: 'flex', gap: '20px' }}>
+        <a 
+          href="/" 
+          onClick={(e) => { e.preventDefault(); setCurrentPath('/'); }}
           style={{
-            backgroundColor: '#0EA5E9',
             color: 'white',
+            textDecoration: 'underline',
             padding: '12px 24px',
-            border: 'none',
+            backgroundColor: currentPath === '/' ? '#6D28D9' : '#7C3AED',
             borderRadius: '8px',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            marginLeft: 'auto'
+            fontWeight: 'bold'
           }}
         >
-          Refresh Notifications
-        </button>
-      )}
+          Posts
+        </a>
+        <a 
+          href="/users" 
+          onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
+          style={{
+            color: 'white',
+            textDecoration: 'underline',
+            padding: '12px 24px',
+            backgroundColor: currentPath === '/users' ? '#6D28D9' : '#7C3AED',
+            borderRadius: '8px',
+            fontWeight: 'bold'
+          }}
+        >
+          Users
+        </a>
+        <a 
+          href="/notifications" 
+          onClick={(e) => { e.preventDefault(); setCurrentPath('/notifications'); }}
+          style={{
+            color: 'white',
+            textDecoration: 'underline',
+            padding: '12px 24px',
+            backgroundColor: currentPath === '/notifications' ? '#6D28D9' : '#7C3AED',
+            borderRadius: '8px',
+            fontWeight: 'bold'
+          }}
+        >
+          Notifications
+        </a>
+        {currentPath === '/notifications' && (
+          <button
+            className="button"
+            onClick={() => window.refreshNotifications && window.refreshNotifications()}
+            style={{
+              backgroundColor: '#0EA5E9',
+              color: 'white',
+              padding: '12px 24px',
+              border: 'none',
+              borderRadius: '8px',
+              fontWeight: 'bold',
+              cursor: 'pointer',
+              marginLeft: 'auto'
+            }}
+          >
+            Refresh Notifications
+          </button>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // Posts Page Component
 const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
@@ -323,6 +333,13 @@ const PostDetailPage = ({ posts, setPosts, users, currentPath, setCurrentPath })
   const [isEditing, setIsEditing] = useState(false);
   const [editedPost, setEditedPost] = useState(post ? { title: post.title, content: post.content } : {});
 
+  // Update URL
+  React.useEffect(() => {
+    if (typeof window !== 'undefined' && window.history && currentPath.includes('/posts/')) {
+      window.history.pushState(null, '', currentPath);
+    }
+  }, [currentPath]);
+
   if (!post) return <div>Post not found</div>;
 
   const handleSave = () => {
@@ -393,6 +410,7 @@ const PostDetailPage = ({ posts, setPosts, users, currentPath, setCurrentPath })
             </div>
             <button 
               onClick={handleSave}
+              className="button"
               style={{ 
                 backgroundColor: '#0EA5E9', 
                 color: 'white', 
@@ -519,15 +537,22 @@ const UsersPage = ({ users, posts, setCurrentPath }) => {
           <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '20px' }}>Users</h1>
           <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
             {users.map(user => (
-              <li key={user.id} onClick={() => handleUserClick(user)} style={{ 
+              <li key={user.id} style={{ 
                 cursor: 'pointer', 
                 padding: '10px 0',
                 fontSize: '18px'
               }}>
-                <a href="#" onClick={(e) => e.preventDefault()} style={{ 
-                  color: '#0EA5E9', 
-                  textDecoration: 'underline' 
-                }}>
+                <a 
+                  href="#" 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleUserClick(user);
+                  }} 
+                  style={{ 
+                    color: '#0EA5E9', 
+                    textDecoration: 'underline' 
+                  }}
+                >
                   {user.name}
                 </a>
               </li>
@@ -565,6 +590,7 @@ const UsersPage = ({ users, posts, setCurrentPath }) => {
           )}
           
           <button 
+            className="button"
             onClick={() => setSelectedUser(null)}
             style={{ 
               backgroundColor: '#0EA5E9', 
