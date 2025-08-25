@@ -276,7 +276,7 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
                     cursor: 'pointer'
                   }}
                 >
-                  ❤ {post.reactions.heart}
+                  ❤️ {post.reactions.heart}
                 </button>
                 <button 
                   onClick={() => handleReaction(post.id, 'rocket')}
@@ -305,8 +305,8 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
               </div>
               
               <a 
-                href={/posts/${post.id}}
-                onClick={(e) => { e.preventDefault(); setCurrentPath(/posts/${post.id}); }}
+                href={`/posts/${post.id}`}
+                onClick={(e) => { e.preventDefault(); setCurrentPath(`/posts/${post.id}`); }}
                 className="button"
                 style={{ 
                   backgroundColor: '#0EA5E9', 
@@ -469,7 +469,7 @@ const PostDetailPage = ({ posts, setPosts, users, currentPath, setCurrentPath })
                   cursor: 'pointer'
                 }}
               >
-                ❤ {post.reactions.heart}
+                ❤️ {post.reactions.heart}
               </button>
               <button 
                 onClick={() => handleReaction('rocket')}
