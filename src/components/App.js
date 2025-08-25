@@ -86,10 +86,9 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
         >
           Posts
         </a>
-       <a 
-  href="/" 
-  data-testid="users-nav-link"
-  onClick={(e) => { e.preventDefault(); setCurrentPath('/'); }}
+        <a 
+          href="/users" 
+          onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
