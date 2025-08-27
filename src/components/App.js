@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 
 // Mock data
 const initialUsers = [
@@ -46,40 +46,20 @@ const initialNotifications = [
 
 // Simple Router Component
 const Router = ({ children, currentPath }) => {
-  const routes = React.Children.toArray(children);
-  
-  // Find exact match first
-  const exactMatch = routes.find(child => 
-    child.props.path === currentPath
-  );
-  
-  if (exactMatch) return exactMatch;
-  
-  // Then check for dynamic routes
-  const dynamicMatch = routes.find(child => {
-    if (!child.props.path.includes(':')) return false;
-    
-    const basePath = child.props.path.split(':')[0];
-    return currentPath.startsWith(basePath);
-  });
-  
-  if (dynamicMatch) return dynamicMatch;
-  
-  // Fallback to home route
-  return routes.find(child => child.props.path === '/') || (
-    <div style={{ padding: '20px', color: 'red' }}>
-      Error: No route found for {currentPath}
-    </div>
-  );
+  return React.Children.toArray(children).find(child => 
+    child.props.path === currentPath || 
+    (child.props.path.includes(':') && currentPath.startsWith(child.props.path.split(':')[0]))
+  ) || children.find(child => child.props.path === '/');
 };
 
 const Route = ({ path, children }) => children;
 
 // Navigation Component
 const Navigation = ({ currentPath, setCurrentPath }) => {
-  useEffect(() => {
+  // Update URL when path changes
+  React.useEffect(() => {
     if (typeof window !== 'undefined' && window.history) {
-      window.history.replaceState(null, '', currentPath);
+      window.history.pushState(null, '', currentPath);
     }
   }, [currentPath]);
 
@@ -94,10 +74,7 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
         <a 
           href="/" 
           data-testid="posts-nav-link"
-          onClick={(e) => { 
-            e.preventDefault(); 
-            setCurrentPath('/'); 
-          }}
+          onClick={(e) => { e.preventDefault(); setCurrentPath('/'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
@@ -109,14 +86,10 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
         >
           Posts
         </a>
-        
         <a 
           href="/users" 
           data-testid="users-nav-link"
-          onClick={(e) => { 
-            e.preventDefault(); 
-            setCurrentPath('/users'); 
-          }}
+          onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
@@ -128,14 +101,10 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
         >
           Users
         </a>
-        
         <a 
-          href="/notifications" 
+          href="/notifications"
           data-testid="notifications-nav-link"
-          onClick={(e) => { 
-            e.preventDefault(); 
-            setCurrentPath('/notifications'); 
-          }}
+          onClick={(e) => { e.preventDefault(); setCurrentPath('/notifications'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
@@ -147,7 +116,6 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
         >
           Notifications
         </a>
-        
         {currentPath === '/notifications' && (
           <button
             className="button"
@@ -178,8 +146,6 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
   const handleSubmit = () => {
     if (newPost.title && newPost.author && newPost.content) {
       const author = users.find(u => u.id === parseInt(newPost.author));
-      if (!author) return;
-      
       const post = {
         id: Date.now(),
         title: newPost.title,
@@ -223,6 +189,7 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
             style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
           />
           
+           
           <label>Author:</label>
           <select
             id="postAuthor"
@@ -263,7 +230,7 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
         <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Posts</h2>
         
         <div className="posts-list">
-          {posts.map((post) => (
+          {posts.map((post, index) => (
             <div key={post.id} style={{ 
               border: '1px solid #ddd', 
               borderRadius: '8px', 
@@ -366,44 +333,19 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
 
 // Post Detail Page Component
 const PostDetailPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
-  // Handle invalid paths gracefully
-  const pathParts = currentPath.split('/');
-  const postId = pathParts.length > 2 ? parseInt(pathParts[2]) : null;
-  
-  // Only try to find post if we have a valid ID
-  const post = postId ? posts.find(p => p.id === postId) : null;
-
+  const postId = parseInt(currentPath.split('/')[2]);
+  const post = posts.find(p => p.id === postId);
   const [isEditing, setIsEditing] = useState(false);
   const [editedPost, setEditedPost] = useState(post ? { title: post.title, content: post.content } : {});
 
   // Update URL
-  useEffect(() => {
+  React.useEffect(() => {
     if (typeof window !== 'undefined' && window.history && currentPath.includes('/posts/')) {
-      window.history.replaceState(null, '', currentPath);
+      window.history.pushState(null, '', currentPath);
     }
   }, [currentPath]);
 
-  if (!postId || !post) {
-    return (
-      <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>Post not found</h2>
-        <button 
-          onClick={() => setCurrentPath('/')}
-          style={{ 
-            backgroundColor: '#0EA5E9', 
-            color: 'white', 
-            padding: '10px 20px', 
-            border: 'none', 
-            borderRadius: '6px',
-            cursor: 'pointer',
-            marginTop: '10px'
-          }}
-        >
-          Back to Posts
-        </button>
-      </div>
-    );
-  }
+  if (!post) return <div>Post not found</div>;
 
   const handleSave = () => {
     setPosts(posts.map(p => 
@@ -599,28 +541,29 @@ const UsersPage = ({ users, posts, setCurrentPath }) => {
         <div>
           <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '20px' }}>Users</h1>
           <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
-            {users.map(user => (
-              <li key={user.id} style={{ 
-                cursor: 'pointer', 
-                padding: '10px 0',
-                fontSize: '18px'
-              }}>
-                <a 
-                  href="#" 
-                  data-testid={`user-link-${user.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleUserClick(user);
-                  }}
-                  style={{ 
-                    color: '#0EA5E9', 
-                    textDecoration: 'underline' 
-                  }}
-                >
-                  {user.name}
-                </a>
-              </li>
-            ))}
+           {users.map(user => (
+  <li key={user.id} style={{ 
+    cursor: 'pointer', 
+    padding: '10px 0',
+    fontSize: '18px'
+  }}>
+    <a 
+      href="#" 
+      data-testid={`user-link-${user.id}`}  // Add unique test ID
+      onClick={(e) => {
+        e.preventDefault();
+        handleUserClick(user);
+      }}
+      style={{ 
+        color: '#0EA5E9', 
+        textDecoration: 'underline' 
+      }}
+    >
+      {user.name}
+    </a>
+  </li>
+))}
+
           </ul>
         </div>
       ) : (
@@ -677,21 +620,12 @@ const UsersPage = ({ users, posts, setCurrentPath }) => {
 
 // Notifications Page Component
 const NotificationsPage = () => {
-  const [notifications, setNotifications] = useState(initialNotifications);
-  const refreshRef = useRef();
+  const [notifications, setNotifications] = useState([]);
 
-  useEffect(() => {
-    // Initialize with initial notifications
-    setNotifications(initialNotifications);
-    
-    // Store refresh function in ref
-    refreshRef.current = () => {
-      setNotifications(initialNotifications);
-    };
-    
-    // Set global reference for testing
+  // Make refresh function globally available
+  React.useEffect(() => {
     window.refreshNotifications = () => {
-      if (refreshRef.current) refreshRef.current();
+      setNotifications(initialNotifications);
     };
     
     return () => {
@@ -717,22 +651,6 @@ const NotificationsPage = () => {
           </div>
         ))}
       </section>
-      
-      <button
-        onClick={() => refreshRef.current && refreshRef.current()}
-        style={{
-          backgroundColor: '#0EA5E9',
-          color: 'white',
-          padding: '12px 24px',
-          border: 'none',
-          borderRadius: '8px',
-          fontWeight: 'bold',
-          cursor: 'pointer',
-          marginTop: '20px'
-        }}
-      >
-        Refresh Notifications
-      </button>
     </div>
   );
 };
