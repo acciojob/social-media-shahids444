@@ -73,21 +73,28 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
       <div style={{ display: 'flex', gap: '20px' }}>
         <a 
           href="/" 
-          data-testid="posts-nav-link"  // Unique test ID
+          data-testid="posts-nav-link"
           onClick={(e) => { e.preventDefault(); setCurrentPath('/'); }}
-          style={{ /* ... */ }}
+          style={{
+            color: 'white',
+            textDecoration: 'underline',
+            padding: '12px 24px',
+            backgroundColor: currentPath === '/' ? '#6D28D9' : '#7C3AED',
+            borderRadius: '8px',
+            fontWeight: 'bold'
+          }}
         >
           Posts
         </a>
         <a 
-         href="/users" 
-          data-testid="users-nav-link"  // Unique test ID
+          href="/users" 
+          data-testid="users-nav-link"
           onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
             padding: '12px 24px',
-             backgroundColor: currentPath === '/' ? '#6D28D9' : '#7C3AED',
+            backgroundColor: currentPath === '/users' ? '#6D28D9' : '#7C3AED',
             borderRadius: '8px',
             fontWeight: 'bold'
           }}
@@ -95,7 +102,8 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
           Users
         </a>
         <a 
-          href="/notifications" 
+          href="/notifications"
+          data-testid="notifications-nav-link"
           onClick={(e) => { e.preventDefault(); setCurrentPath('/notifications'); }}
           style={{
             color: 'white',
