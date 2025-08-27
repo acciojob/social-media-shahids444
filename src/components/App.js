@@ -71,10 +71,10 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
     }}>
       <h1 style={{ fontSize: '48px', fontWeight: 'bold', margin: '0 0 30px 0' }}>GenZ</h1>
       <div style={{ display: 'flex', gap: '20px' }}>
-        <a 
-          href="/" 
-          data-testid="posts-nav-link"
-          onClick={(e) => { e.preventDefault(); setCurrentPath('/'); }}
+       <a 
+  href="/users" 
+  data-testid="users-nav-link"
+  onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
@@ -88,13 +88,12 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
         </a>
         <a 
           href="/users" 
-          data-testid="users-nav-link"
           onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}
           style={{
             color: 'white',
             textDecoration: 'underline',
             padding: '12px 24px',
-            backgroundColor: currentPath === '/users' ? '#6D28D9' : '#7C3AED',
+             backgroundColor: currentPath === '/' ? '#6D28D9' : '#7C3AED',
             borderRadius: '8px',
             fontWeight: 'bold'
           }}
@@ -103,7 +102,6 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
         </a>
         <a 
           href="/notifications" 
-          data-testid="notifications-nav-link"
           onClick={(e) => { e.preventDefault(); setCurrentPath('/notifications'); }}
           style={{
             color: 'white',
@@ -179,7 +177,7 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
       <div style={{ padding: '20px' }}>
         <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Add a New Post</h2>
         
-        <div style={{ marginBottom: '30px', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+        <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{ marginBottom: '30px', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
           <label>Post Title:</label>
           <input
             id="postTitle"
@@ -213,7 +211,7 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
             cols="30"
           />
           
-          <button onClick={handleSubmit} style={{ 
+          <button type="submit" style={{ 
             backgroundColor: '#0EA5E9', 
             color: 'white', 
             padding: '12px 24px', 
@@ -224,7 +222,7 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
           }}>
             Save Post
           </button>
-        </div>
+        </form>
        
 
         <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Posts</h2>
@@ -541,28 +539,29 @@ const UsersPage = ({ users, posts, setCurrentPath }) => {
         <div>
           <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '20px' }}>Users</h1>
           <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
-            {users.map(user => (
-              <li key={user.id} style={{ 
-                cursor: 'pointer', 
-                padding: '10px 0',
-                fontSize: '18px'
-              }}>
-                <a 
-                  href="#" 
-                  data-testid={`user-link-${user.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleUserClick(user);
-                  }}
-                  style={{ 
-                    color: '#0EA5E9', 
-                    textDecoration: 'underline' 
-                  }}
-                >
-                  {user.name}
-                </a>
-              </li>
-            ))}
+           {users.map(user => (
+  <li key={user.id} style={{ 
+    cursor: 'pointer', 
+    padding: '10px 0',
+    fontSize: '18px'
+  }}>
+    <a 
+      href="#" 
+      data-testid={`user-link-${user.id}`}  // Add unique test ID
+      onClick={(e) => {
+        e.preventDefault();
+        handleUserClick(user);
+      }}
+      style={{ 
+        color: '#0EA5E9', 
+        textDecoration: 'underline' 
+      }}
+    >
+      {user.name}
+    </a>
+  </li>
+))}
+
           </ul>
         </div>
       ) : (
