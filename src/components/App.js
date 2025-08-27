@@ -71,32 +71,32 @@ const Navigation = ({ currentPath, setCurrentPath }) => {
     }}>
       <h1 style={{ fontSize: '48px', fontWeight: 'bold', margin: '0 0 30px 0' }}>GenZ</h1>
       <div style={{ display: 'flex', gap: '20px' }}>
-       <a 
- href="/posts"    
-  data-testid="posts-nav-link"   
-  onClick={(e) => { e.preventDefault(); setCurrentPath('/posts'); }}           
-  style={{             
-    color: 'white',             
-    textDecoration: 'underline',             
-    padding: '12px 24px',             
-    backgroundColor: currentPath === '/posts' ? '#6D28D9' : '#7C3AED',             
-    borderRadius: '8px',             
-    fontWeight: 'bold'    
+        <a 
+          href="/posts"    
+          data-testid="posts-nav-link"   
+          onClick={(e) => { e.preventDefault(); setCurrentPath('/posts'); }}           
+          style={{             
+            color: 'white',             
+            textDecoration: 'underline',             
+            padding: '12px 24px',             
+            backgroundColor: currentPath === '/posts' ? '#6D28D9' : '#7C3AED',             
+            borderRadius: '8px',             
+            fontWeight: 'bold'    
           }}
         >
           Posts
         </a>
         <a 
-        href="/users"            
-  data-testid="users-nav-link"
-  onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}           
-  style={{             
-    color: 'white',             
-    textDecoration: 'underline',             
-    padding: '12px 24px',              
-    backgroundColor: currentPath === '/users' ? '#6D28D9' : '#7C3AED',             
-    borderRadius: '8px',             
-    fontWeight: 'bold'  
+          href="/users"            
+          data-testid="users-nav-link"
+          onClick={(e) => { e.preventDefault(); setCurrentPath('/users'); }}           
+          style={{             
+            color: 'white',             
+            textDecoration: 'underline',             
+            padding: '12px 24px',              
+            backgroundColor: currentPath === '/users' ? '#6D28D9' : '#7C3AED',             
+            borderRadius: '8px',             
+            fontWeight: 'bold'  
           }}
         >
           Users
@@ -178,7 +178,7 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
       <div style={{ padding: '20px' }}>
         <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Add a New Post</h2>
         
-        <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} style={{ marginBottom: '30px', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+        <div style={{ marginBottom: '30px', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
           <label>Post Title:</label>
           <input
             id="postTitle"
@@ -188,7 +188,6 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
             style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
           />
           
-           
           <label>Author:</label>
           <select
             id="postAuthor"
@@ -212,7 +211,7 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
             cols="30"
           />
           
-          <button type="submit" style={{ 
+          <button onClick={handleSubmit} style={{ 
             backgroundColor: '#0EA5E9', 
             color: 'white', 
             padding: '12px 24px', 
@@ -223,9 +222,8 @@ const PostsPage = ({ posts, setPosts, users, currentPath, setCurrentPath }) => {
           }}>
             Save Post
           </button>
-        </form>
+        </div>
        
-
         <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>Posts</h2>
         
         <div className="posts-list">
@@ -546,13 +544,13 @@ const UsersPage = ({ users, posts, setCurrentPath }) => {
                 padding: '10px 0',
                 fontSize: '18px'
               }}>
-              <a 
-  href="#" 
-  data-testid={`user-link-${user.id}`}
-  onClick={(e) => {
-    e.preventDefault();
-    handleUserClick(user);
-  }}
+                <a 
+                  href="#" 
+                  data-testid={`user-link-${user.id}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleUserClick(user);
+                  }}
                   style={{ 
                     color: '#0EA5E9', 
                     textDecoration: 'underline' 
